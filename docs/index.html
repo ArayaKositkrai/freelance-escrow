@@ -4,18 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DigitalWork Escrow — ระบบจ้างงานฟรีแลนซ์และชำระเงินตามผลงาน</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛓</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2250%22 fill=%22%230b0a08%22/><text x=%2250%22 y=%2264%22 text-anchor=%22middle%22 font-family=%22Georgia%22 font-size=%2244%22 fill=%22%23c9a96e%22>DW</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Noto+Serif+Thai:wght@400;500;600&family=Noto+Sans+Thai:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
-      <span class="logo">⛓</span>
+      <span class="logo">DW</span>
       <div>
-        <h1>DigitalWork Escrow</h1>
-        <p>ระบบจ้างงานฟรีแลนซ์และชำระเงินตามผลงานด้วย Smart Contract</p>
+        <h1>DigitalWork <span>Escrow</span></h1>
+        <p>Freelance Escrow &amp; Smart Payment</p>
       </div>
     </div>
     <div class="wallet">
@@ -23,6 +24,13 @@
       <button id="connectBtn" class="btn primary">🦊 เชื่อมต่อ MetaMask</button>
     </div>
   </header>
+
+  <section class="hero">
+    <div class="eyebrow">Trustless · Transparent · On-chain</div>
+    <h2>สัญญาจ้างที่ <em>เชื่อถือได้</em><br />ด้วย Smart Contract บน Ethereum</h2>
+    <p class="lead">เงินค่าจ้างถูกเก็บไว้ใน Escrow อย่างปลอดภัย และโอนให้ฟรีแลนซ์ทันทีเมื่อผู้ว่าจ้างอนุมัติผลงาน ทุกขั้นตอนตรวจสอบได้บน blockchain</p>
+    <div class="rule">◆</div>
+  </section>
 
   <main>
     <section class="stats">
@@ -35,11 +43,11 @@
     <div id="notice" class="notice hidden"></div>
 
     <nav class="tabs">
-      <button class="tab active" data-tab="jobs">📋 งานของฉัน</button>
-      <button class="tab" data-tab="create">➕ สร้างข้อตกลงใหม่</button>
-      <button class="tab" data-tab="all">🔎 งานทั้งหมด</button>
-      <button class="tab" data-tab="history">🧾 ประวัติธุรกรรม</button>
-      <button class="tab hidden" data-tab="admin" id="adminTab">⚖️ ผู้ดูแลข้อพิพาท</button>
+      <button class="tab active" data-tab="jobs">งานของฉัน</button>
+      <button class="tab" data-tab="create">สร้างข้อตกลงใหม่</button>
+      <button class="tab" data-tab="all">งานทั้งหมด</button>
+      <button class="tab" data-tab="history">ประวัติธุรกรรม</button>
+      <button class="tab hidden" data-tab="admin" id="adminTab">ผู้ดูแลข้อพิพาท</button>
     </nav>
 
     <!-- งานของฉัน -->
@@ -116,7 +124,7 @@
 
   <div id="toasts"></div>
 
-  <footer>Freelance Escrow &amp; Smart Payment Platform · Solidity + ethers.js + MetaMask</footer>
+  <footer>DigitalWork <span>◆</span> Escrow · Solidity · ethers.js · MetaMask · Sepolia</footer>
 
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
   <script src="config.js"></script>
