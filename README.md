@@ -5,14 +5,8 @@
 เงินค่าจ้างถูกล็อกไว้ใน contract และจะโอนให้ฟรีแลนซ์อัตโนมัติเมื่อผู้ว่าจ้างอนุมัติงาน
 หากมีปัญหา คู่สัญญาแจ้งข้อพิพาทได้ และผู้ดูแล (Arbiter) เป็นผู้ตัดสินคืนเงินหรือจ่ายเงิน
 
-## 📦 สิ่งที่ส่ง
 
-| รายการ | ค่า |
-|---|---|
-| Contract Address (Sepolia) | `0x5f8E74CeD3a31Dba2C14C4dbb9f020B20FCB03b9` |
-| GitHub Pages | https://arayakositkrai.github.io/freelance-escrow/ |
 | GitHub Repository | https://github.com/ArayaKositkrai/freelance-escrow |
-| ดู Contract บน Etherscan | https://sepolia.etherscan.io/address/0x5f8E74CeD3a31Dba2C14C4dbb9f020B20FCB03b9 |
 
 ---
 
@@ -184,5 +178,7 @@ git push -u origin main
 Solidity 0.8.24 · Hardhat · ethers.js v6 · MetaMask · GitHub Pages · Sepolia Testnet
 
 ## 👩‍💻 ผู้จัดทำ
-อารยา โฆษิตไกร (Araya Kositkrai) — รหัสนักศึกษา 66048395
-สาขาวิทยาการคอมพิวเตอร์และนวัตกรรมการพัฒนาซอฟต์แวร์ คณะเทคโนโลยีสารสนเทศ มหาวิทยาลัยศรีปทุม
+66012968 สิราวรรณ จันแดง
+66048395 อารยา โฆษิตไกร
+66080904 กันต์ณิษา อินตรา
+66085170 ศิรินทร์ จันทร์ทนต์
