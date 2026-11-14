@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DigitalWork Escrow — ระบบจ้างงานฟรีแลนซ์และชำระเงินตามผลงาน</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛓</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">⛓</span>
+      <div>
+        <h1>DigitalWork Escrow</h1>
+        <p>ระบบจ้างงานฟรีแลนซ์และชำระเงินตามผลงานด้วย Smart Contract</p>
+      </div>
+    </div>
+    <div class="wallet">
+      <span id="networkBadge" class="badge muted">ยังไม่เชื่อมต่อ</span>
+      <button id="connectBtn" class="btn primary">🦊 เชื่อมต่อ MetaMask</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="stats">
+      <div class="stat"><span>งานทั้งหมด</span><strong id="statJobs">–</strong></div>
+      <div class="stat"><span>เงินใน Escrow</span><strong id="statEscrow">–</strong></div>
+      <div class="stat"><span>ยอดเงินของฉัน</span><strong id="statBalance">–</strong></div>
+      <div class="stat"><span>Contract</span><a id="statContract" class="mono" target="_blank" rel="noopener">–</a></div>
+    </section>
+
+    <div id="notice" class="notice hidden"></div>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="jobs">📋 งานของฉัน</button>
+      <button class="tab" data-tab="create">➕ สร้างข้อตกลงใหม่</button>
+      <button class="tab" data-tab="all">🔎 งานทั้งหมด</button>
+      <button class="tab" data-tab="history">🧾 ประวัติธุรกรรม</button>
+      <button class="tab hidden" data-tab="admin" id="adminTab">⚖️ ผู้ดูแลข้อพิพาท</button>
+    </nav>
+
+    <!-- งานของฉัน -->
+    <section class="panel" id="tab-jobs">
+      <div class="panel-head">
+        <div class="seg">
+          <button class="seg-btn active" data-role="all">ทั้งหมด</button>
+          <button class="seg-btn" data-role="client">ฉันเป็นผู้ว่าจ้าง</button>
+          <button class="seg-btn" data-role="freelancer">ฉันเป็นฟรีแลนซ์</button>
+        </div>
+        <button class="btn ghost" data-refresh>↻ รีเฟรช</button>
+      </div>
+      <div id="myJobs" class="grid"></div>
+    </section>
+
+    <!-- สร้างงาน -->
+    <section class="panel hidden" id="tab-create">
+      <form id="createForm" class="form">
+        <h2>สร้างข้อตกลงการจ้างงาน</h2>
+        <label>ชื่อโครงการ<input name="title" required maxlength="120" placeholder="เช่น ออกแบบเว็บไซต์ร้านกาแฟ" /></label>
+        <label>รายละเอียดงาน<textarea name="description" rows="4" placeholder="ขอบเขตงาน สิ่งที่ต้องส่งมอบ เงื่อนไขการตรวจรับ"></textarea></label>
+        <label>Wallet Address ของฟรีแลนซ์<input name="freelancer" required class="mono" placeholder="0x..." /></label>
+        <div class="row">
+          <label>ค่าจ้าง (ETH)<input name="amount" required type="number" min="0" step="any" placeholder="0.01" /></label>
+          <label>กำหนดส่ง<input name="deadline" required type="datetime-local" /></label>
+        </div>
+        <label class="check"><input type="checkbox" name="depositNow" checked /> ฝากเงินค่าจ้างเข้า Escrow ทันทีหลังสร้าง (ยืนยัน 2 ธุรกรรมใน MetaMask)</label>
+        <button class="btn primary big" type="submit">สร้างข้อตกลง</button>
+      </form>
+    </section>
+
+    <!-- งานทั้งหมด -->
+    <section class="panel hidden" id="tab-all">
+      <div class="panel-head">
+        <input id="searchId" class="search" type="number" min="1" placeholder="ค้นหาด้วยเลขงาน (Job ID)" />
+        <button class="btn ghost" data-refresh>↻ รีเฟรช</button>
+      </div>
+      <div id="allJobs" class="grid"></div>
+    </section>
+
+    <!-- ประวัติ -->
+    <section class="panel hidden" id="tab-history">
+      <div class="panel-head">
+        <label class="check"><input type="checkbox" id="onlyMine" checked /> แสดงเฉพาะที่เกี่ยวกับฉัน</label>
+        <button class="btn ghost" data-refresh>↻ รีเฟรช</button>
+      </div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>เวลา / Block</th><th>เหตุการณ์</th><th>งาน</th><th>รายละเอียด</th><th>Transaction Hash</th></tr></thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ผู้ดูแล -->
+    <section class="panel hidden" id="tab-admin">
+      <div class="panel-head"><h2>ข้อพิพาทที่รอพิจารณา</h2><button class="btn ghost" data-refresh>↻ รีเฟรช</button></div>
+      <div id="disputeJobs" class="grid"></div>
+      <form id="arbiterForm" class="form small hidden">
+        <h3>จัดการผู้ดูแล (เฉพาะ Owner)</h3>
+        <div class="row">
+          <input name="addr" class="mono" placeholder="0x... address" required />
+          <select name="enabled"><option value="true">เพิ่มสิทธิ์</option><option value="false">ถอนสิทธิ์</option></select>
+          <button class="btn" type="submit">บันทึก</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <dialog id="modal">
+    <div class="modal-body" id="modalBody"></div>
+  </dialog>
+
+  <div id="toasts"></div>
+
+  <footer>Freelance Escrow &amp; Smart Payment Platform · Solidity + ethers.js + MetaMask</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+  <script src="config.js"></script>
+  <script src="abi.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
